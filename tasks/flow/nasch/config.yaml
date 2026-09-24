@@ -1,0 +1,16 @@
+# Nagel-Schreckenberg single-lane traffic — all hyperparameters.
+task: nasch
+seed: 42
+
+population:               # P — vehicles on a circular single lane
+  lane_length: 200       # L: number of cells (ring)
+  density: 0.25          # rho: fraction of occupied cells -> N = round(rho * L)
+
+dynamics:                # E — the road / update rules
+  steps: 100
+  vmax: 5                # max speed (cells per step)
+  randomization_prob: 0.2  # p: random slowdown probability (NaSch rule 3)
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

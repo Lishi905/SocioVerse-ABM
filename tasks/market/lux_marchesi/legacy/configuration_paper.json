@@ -1,0 +1,42 @@
+{
+    "_comment": "Paper-aligned configuration for reproducing Fig.16-like intermittency",
+    "_note": "After fixing strategy switching rates (source-group scaling), chartists should persist and co-move with volatility",
+
+    "num_fundamentalists": 167,
+    "num_noise_optimist": 167,
+    "num_noise_pessimist": 166,
+
+    "market_price": 100,
+    "market_value": 100,
+
+    "time_of_simulation": 1000,
+
+    "v1": 2.0,
+    "alpha1": 0.6,
+    "alpha2": 1.5,
+    "alpha3": 1.0,
+    "v2": 0.6,
+    "beta": 4.0,
+    "gamma": 0.01,
+    "s": 0.75,
+    "R": 0.0004,
+    
+    "t_c": 0.002,
+
+    "delta_t": 0.01,
+    "delta_p": 0.001,
+    "price_update_mode": "poisson",
+
+    "price_change_mu": 0.0,
+    "price_change_sigma": 0.04,
+
+    "value_change_mu": 0.0,
+    "value_change_sigma": 0.002,
+
+    "minimal_agent_population_frac": 0.01,
+
+    "abm_update_scheme": "sequential",
+    "burst_substep_enabled": true,
+    "burst_substep_threshold": 0.05,
+    "burst_substep_factor": 5
+}

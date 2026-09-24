@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install (kernel + the deps the rule-mode tests need)
+        run: |
+          python -m pip install --upgrade pip
+          # rule mode + tests are native; openai and the chicago geo stack are not needed here
+          pip install numpy networkx pyyaml pytest
+          pip install -e . --no-deps
+      - name: List registered tasks
+        run: sv-abm list
+      - name: Run tests
+        run: pytest tasks/ socioverse_abm/ -q
+
+  test-chicago:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install with the chicago and dev extras
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[chicago,dev]"
+      - name: Run tests (including chicago_segregation)
+        run: pytest tasks/ socioverse_abm/ -q
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: "8.21.2"
+      GITLEAKS_SHA256: "5bc41815076e6ed6ef8fbecc9d9b75bcae31f39029ceb55da08086315316e3ba"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install gitleaks (pinned release, checksum-verified)
+        run: |
+          curl -sSfL -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum -c -
+          tar -xzf gitleaks.tar.gz gitleaks
+          sudo install -m 0755 gitleaks /usr/local/bin/gitleaks
+          rm -f gitleaks gitleaks.tar.gz
+      - name: Scan the working tree for secrets
+        run: gitleaks detect --no-git --source . --config .gitleaks.toml --redact --verbose

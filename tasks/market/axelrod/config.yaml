@@ -1,0 +1,15 @@
+# Axelrod iterated Prisoner's Dilemma tournament — all hyperparameters.
+task: axelrod
+seed: 42
+
+population:               # P — agents, each running a fixed strategy
+  copies_per_strategy: 4
+  strategies: [tit_for_tat, always_cooperate, always_defect, grudger, random]
+
+dynamics:                # E — round-robin: every pair plays `rounds` rounds in lockstep
+  rounds: 100
+  payoff: {T: 5, R: 3, P: 1, S: 0}   # T > R > P > S (classic IPD)
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

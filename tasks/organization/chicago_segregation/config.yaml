@@ -1,0 +1,49 @@
+# Chicago residential segregation — real-geography Schelling (organization family).
+# B = f(P, E): archetype households (P) on the 2010 Chicago tract graph (E), moving
+# under either the classical similarity threshold (rule) or the LLM behavior fn (llm).
+#
+# Defaults are a small, fast prototype of the 2010-perturbation recovery test.
+# For the full-city reference run: scale=full, init_mode=perturbed_n, steps=15, mode=llm.
+task: chicago_segregation
+seed: 42
+
+population:                 # P — archetype households sampled onto real tracts
+  scale: small              # small (~25 tracts) | middle (~218) | full (781 city-wide)
+  init_mode: perturbed_n    # recovery test: perturb 2010, recover. census | perturbed | perturbed_n | random | semi_random | inverted | census_2000
+  perturb_pct: 0.15         # fraction of households displaced at t=0 (perturbed / perturbed_n)
+  perturb_radius_hops: 7    # perturbed_n: displace within this many adjacency hops
+
+dynamics:                   # E — the tract graph + the shared move machinery
+  steps: 10                 # the full-city reference run uses 15
+  move_budget_pct: 0.05     # per-step per-race mover budget (shared by rule AND llm — the "same budget" comparison)
+
+behavior:                   # f — rule | llm | hybrid
+  mode: rule                # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o         # llm mode: model id (SV_LLM_MODEL only if empty); key + base URL from env or repo .env
+  # --- classical Schelling baseline (rule mode) — the rule-based reference ---
+  homophily: 0.5            # similarity threshold τ: a household is content when own-race
+                            #   neighbourhood share ≥ τ (the reference baseline uses τ = 0.5)
+  search_radius_hops: 1     # rule mode: how far a discontent household looks for a better tract
+
+# Extra kwargs forwarded verbatim to legacy SegregationModel (omit to use its defaults,
+# which match the validated published configuration). Uncomment to override:
+# model:
+#   own_race_ceiling_ratio: 1.3
+#   max_pop_per_agent: 250
+#   race_size_budget_scaling: true
+#   per_step_tract_inflow_cap_ratio: 0.03
+#   move_priority_income_weight: 0.0
+
+# --- supplementary ablations (E0-E4) ---
+# The reference full-city run (vendored Chicago segregation model @ a1964b8) additionally
+# used capacity_tolerance: 0.15 — set it under model: when reproducing that configuration.
+# behavior:
+#   rule_variant: classical      # classical | classical_random | calibrated_multigroup | logit  (rule mode only, E0)
+# ablations:
+#   race_blind: true             # E2: strip racial info from all LLM-visible text
+#   shuffle_tract_attributes: 42 # E4: permute non-demographic tract profiles (int seed, or true)
+# model:                         # E3 constraints-off preset:
+#   own_race_ceiling_ratio: 0
+#   race_size_budget_scaling: false
+#   per_step_tract_inflow_cap_ratio: 0
+#   enclave_candidate_bias: 0

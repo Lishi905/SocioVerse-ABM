@@ -1,0 +1,25 @@
+# SIR rumor spreading (Ignorant -> Spreader -> Stifler) — all hyperparameters.
+# No hard-coded constants in code; everything the run depends on lives here.
+task: sir
+seed: 42
+
+population:               # P — who, and how they are connected
+  n: 500
+  topology: WS           # ER (random) | BA (scale-free) | WS (small-world)
+  topology_params:
+    ws_k: 6              # WS: ring neighbors
+    ws_p: 0.1            # WS: rewiring prob
+    ba_m: 3             # BA: edges per new node
+    er_mean_degree: 6   # ER: target mean degree
+  initial_spreaders: 1
+
+dynamics:                # E — how the rumor propagates
+  steps: 80
+  p: 0.6                 # base forward/transmit willingness on contact
+  q: 0.1                 # immunity: ignore as fake / no interest
+  gamma: 0.25            # spreader loses interest -> stifler
+  # beta_eff = p * (1 - q) is derived in model.py (legacy mapping preserved)
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

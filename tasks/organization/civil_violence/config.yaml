@@ -1,0 +1,23 @@
+# Epstein Civil Violence — all hyperparameters.
+task: civil_violence
+seed: 42
+
+population:               # P — citizens (may rebel) + cops, on a grid with empty cells
+  width: 30
+  height: 30
+  citizen_density: 0.70
+  cop_density: 0.04
+
+dynamics:                # E — grid, vision, legitimacy, arrest, jail
+  steps: 80
+  legitimacy: 0.82       # L: perceived government legitimacy
+  vision: 5              # how far citizens/cops can see (Chebyshev radius)
+  arrest_k: 2.3          # arrest-probability constant
+  active_threshold: 0.1  # T: rebel if grievance - net_risk > T
+  max_jail_term: 30
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o
+  context: ocm           # ocm | lcm  (E description for the LLM)
+  llm_behavior: tbf      # tbf | lbf  (LLM follows the rule vs free reasoning)

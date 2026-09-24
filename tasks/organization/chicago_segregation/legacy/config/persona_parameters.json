@@ -1,0 +1,410 @@
+{
+  "_metadata": {
+    "description": "Quantitative persona parameters for Chicago Racial Segregation ABM",
+    "version": "1.0",
+    "base_year": 2010,
+    "spatial_unit": "Census Tract",
+    "sources": [
+      "Farley et al. 1994 ASR 59(5):750-780 - showcard preference experiments",
+      "Krysan et al. 2009 AJS 115(2):527-559 - video neighborhood experiment",
+      "Card, Mas & Rothstein 2008 QJE 123(1):177-218 - tipping points",
+      "Clark 1991 Demography 28(1):1-19 - Schelling calibration",
+      "Bruch & Mare 2006 AJS 112(3):667-709 - discrete choice preference functions",
+      "Fossett 2006 J Math Sociology 30(3-4):185-273 - calibrated Schelling",
+      "Krysan & Crowder 2017 Cycle of Segregation - housing search",
+      "US Census Bureau ACS 2008-2012 5-year - Chicago income data",
+      "2010 Decennial Census SF1 - population data"
+    ]
+  },
+
+  "racial_groups": {
+    "nh_white": {
+      "label": "Non-Hispanic White",
+      "city_population": 840769,
+      "city_share": 0.317,
+      "median_hh_income": 68254,
+      "per_capita_income_quartiles": [26353, 35787, 57123],
+      "n_tracts_dominant": 276
+    },
+    "nh_black": {
+      "label": "Non-Hispanic Black",
+      "city_population": 851576,
+      "city_share": 0.321,
+      "median_hh_income": 30592,
+      "per_capita_income_quartiles": [12961, 16579, 20369],
+      "n_tracts_dominant": 297
+    },
+    "nh_asian": {
+      "label": "Non-Hispanic Asian",
+      "city_population": 141935,
+      "city_share": 0.053,
+      "median_hh_income": 56657,
+      "per_capita_income_quartiles": [16551, 22694, 22694],
+      "n_tracts_dominant": 9
+    },
+    "hispanic": {
+      "label": "Hispanic/Latino",
+      "city_population": 776926,
+      "city_share": 0.293,
+      "median_hh_income": 41712,
+      "per_capita_income_quartiles": [13781, 16930, 25113],
+      "n_tracts_dominant": 199
+    },
+    "nh_other": {
+      "label": "Other (Two or more races, AIAN, NHPI)",
+      "city_population": 43652,
+      "city_share": 0.016,
+      "median_hh_income": null,
+      "per_capita_income_quartiles": null,
+      "n_tracts_dominant": 0
+    }
+  },
+
+  "neighborhood_composition_preferences": {
+    "_doc": "Ideal and threshold percentages of own-group in neighborhood. Calibrated to reproduce Census 2010 dissimilarity indices: D_bw=0.825, D_hw=0.563, D_aw=0.449.",
+    "_sources": [
+      "Farley et al. 1994 ASR 59(5):750-780 - showcard preference experiments",
+      "Clark 1991 Demography 28(1):1-19 - Schelling calibration",
+      "Krysan et al. 2009 AJS 115(2):527-559 - video neighborhood experiment",
+      "Bruch & Mare 2006 AJS 112(3):667-709 - discrete choice preference functions",
+      "Card, Mas & Rothstein 2008 QJE 123(1):177-218 - tipping points",
+      "Charles 2003 Annual Review of Sociology 29:167-207 - comparative racial preferences",
+      "Massey & Denton 1987 AJS 92:802-825, 1989 Social Forces 67:281-315 - Hispanic/Asian lower segregation",
+      "Iceland & Scopilliti 2008 Social Forces 87:427-451 - Asian lowest segregation among minorities",
+      "Logan & Zhang 2010 Demography 47:821-844 - Asian SES-driven residential choice",
+      "Park & Iceland 2011 Demography 48:1537-1561 - Asian suburbanization",
+      "Krysan & Crowder 2017 Cycle of Segregation - differential housing search"
+    ],
+    "nh_white": {
+      "ideal_own_group_pct": 0.60,
+      "min_own_group_pct": 0.40,
+      "max_outgroup_tolerance": {
+        "_doc": "Max fraction of each outgroup before dissatisfaction sharply rises",
+        "nh_black": 0.20,
+        "hispanic": 0.35,
+        "nh_asian": 0.40,
+        "any_nonwhite_combined": 0.35
+      },
+      "tipping_point_black_pct": 0.13,
+      "comfort_zone_upper_bound": 0.20,
+      "preference_slope_per_pct_black": -0.035,
+      "notes": "White residents most sensitive to racial composition. Farley 1994: ~50% unwilling to enter 20% Black neighborhood. Card et al. 2008: tipping point ~5-13% Black. Bruch & Mare 2006: preference decline roughly linear with steepening above 20% Black."
+    },
+    "nh_black": {
+      "ideal_own_group_pct": 0.50,
+      "min_own_group_pct": 0.20,
+      "max_outgroup_tolerance": {
+        "nh_white": 0.70,
+        "hispanic": 0.50,
+        "nh_asian": 0.50
+      },
+      "ideal_mixed_composition": {"nh_black": 0.50, "nh_white": 0.30, "other": 0.20},
+      "aversion_to_all_white": true,
+      "all_white_penalty": 0.25,
+      "preference_slope_per_pct_white": -0.005,
+      "notes": "Farley 1994: modal preference ~50% Black-50% White. Aversion to all-White neighborhoods due to anticipated discrimination. Krysan & Crowder 2017: social network constraints limit search to familiar areas."
+    },
+    "hispanic": {
+      "ideal_own_group_pct": 0.25,
+      "min_own_group_pct": 0.08,
+      "max_outgroup_tolerance": {
+        "nh_white": 0.75,
+        "nh_black": 0.35,
+        "nh_asian": 0.50
+      },
+      "ideal_mixed_composition": {"hispanic": 0.30, "nh_white": 0.35, "other": 0.35},
+      "language_enclave_bonus": 0.10,
+      "preference_slope_per_pct_black": -0.015,
+      "notes": "D_hw=0.563 — significantly lower than Black segregation. Charles 2003: Hispanic tolerance for diverse neighborhoods much higher than Black or White. Massey & Denton 1989: Hispanic segregation driven more by economics and language than racial avoidance. Krysan & Crowder 2017: Hispanic 'gateway communities' (Pilsen, Little Village, Back of the Yards) historically function as entry points with high turnover and diversity. Iceland 2009: Hispanic suburban dispersal accelerating, reducing residential clustering. Ideal own-group lowered from 0.50→0.25 to reflect that Hispanic segregation is primarily an artifact of immigration/language concentration, not strong in-group preference."
+    },
+    "nh_asian": {
+      "ideal_own_group_pct": 0.12,
+      "min_own_group_pct": 0.03,
+      "max_outgroup_tolerance": {
+        "nh_white": 0.80,
+        "nh_black": 0.40,
+        "hispanic": 0.55
+      },
+      "ideal_mixed_composition": {"nh_asian": 0.15, "nh_white": 0.50, "other": 0.35},
+      "ethnic_enclave_bonus": 0.10,
+      "notes": "D_aw=0.449 — lowest segregation among minorities. Iceland & Scopilliti 2008: Asian Americans are the least segregated minority; their residential patterns are driven primarily by SES (school quality, income, safety) not racial composition. Logan & Zhang 2010: Asian residential choice is 'SES-led' — higher income Asians disperse into White-majority suburbs with good schools. Park & Iceland 2011: highest suburbanization rate, most mixed neighborhoods. Chicago-specific: outside Chinatown (Armour Square), Asians are broadly distributed in north side suburbs and university areas. Ideal own-group lowered from 0.30→0.12 to reflect that only a small fraction (first-generation Chinese) have strong enclave preferences."
+    },
+    "nh_other": {
+      "ideal_own_group_pct": 0.10,
+      "min_own_group_pct": 0.03,
+      "max_outgroup_tolerance": {
+        "nh_white": 0.75,
+        "nh_black": 0.55,
+        "hispanic": 0.55,
+        "nh_asian": 0.55
+      },
+      "notes": "Small heterogeneous group (multiracial, AIAN, NHPI). Generally tolerant of diverse environments. Parameters approximated as average of other groups with lower own-group affinity."
+    }
+  },
+
+  "neighbor_preference_hierarchy": {
+    "_doc": "Universal desirability ranking of neighbor racial groups. Scale 0-1 where 1=most desired. Based on Krysan 2009, consistent across all respondent groups.",
+    "as_rated_by": {
+      "nh_white": {"nh_white": 1.00, "nh_asian": 0.70, "hispanic": 0.60, "nh_black": 0.30},
+      "nh_black": {"nh_white": 0.65, "nh_asian": 0.60, "hispanic": 0.55, "nh_black": 1.00},
+      "hispanic": {"nh_white": 0.80, "nh_asian": 0.65, "hispanic": 1.00, "nh_black": 0.40},
+      "nh_asian": {"nh_white": 0.85, "nh_asian": 1.00, "hispanic": 0.60, "nh_black": 0.35}
+    }
+  },
+
+  "satisfaction_function_weights": {
+    "_doc": "Weight each factor contributes to overall neighborhood satisfaction (0-1 scale, must sum to 1.0 within each group). Calibrated so racial_composition drives White/Black segregation but NOT Hispanic/Asian over-segregation. Logan & Zhang 2010: Asian choices are SES-driven. Charles 2003: Hispanic tolerance for diversity is much higher.",
+    "nh_white": {
+      "racial_composition": 0.30,
+      "school_quality": 0.20,
+      "safety_crime": 0.18,
+      "housing_cost_match": 0.12,
+      "commute_transit": 0.08,
+      "amenities": 0.05,
+      "social_network_proximity": 0.07,
+      "_notes": "White: strongest racial preference weight (Farley 1994). School and safety secondary."
+    },
+    "nh_black": {
+      "racial_composition": 0.20,
+      "school_quality": 0.15,
+      "safety_crime": 0.15,
+      "housing_cost_match": 0.18,
+      "commute_transit": 0.10,
+      "amenities": 0.05,
+      "social_network_proximity": 0.17,
+      "_notes": "Black: moderate racial preference; social network and housing cost are major factors (Krysan & Crowder 2017)."
+    },
+    "hispanic": {
+      "racial_composition": 0.10,
+      "school_quality": 0.14,
+      "safety_crime": 0.14,
+      "housing_cost_match": 0.20,
+      "commute_transit": 0.12,
+      "amenities": 0.05,
+      "social_network_proximity": 0.25,
+      "_notes": "Hispanic: LOW racial composition weight — segregation driven by economics/language/social networks, not racial avoidance. Charles 2003: Hispanics show weakest racial neighborhood preferences among non-White groups. Housing cost and social network are dominant factors."
+    },
+    "nh_asian": {
+      "racial_composition": 0.08,
+      "school_quality": 0.28,
+      "safety_crime": 0.14,
+      "housing_cost_match": 0.15,
+      "commute_transit": 0.15,
+      "amenities": 0.05,
+      "social_network_proximity": 0.15,
+      "_notes": "Asian: LOWEST racial composition weight — residential choice is SES-led (Logan & Zhang 2010). School quality is dominant factor (Park & Iceland 2011). Commute also important for professional workers. Iceland & Scopilliti 2008: Asian segregation is lowest and declining."
+    },
+    "nh_other": {
+      "racial_composition": 0.10,
+      "school_quality": 0.18,
+      "safety_crime": 0.15,
+      "housing_cost_match": 0.17,
+      "commute_transit": 0.15,
+      "amenities": 0.08,
+      "social_network_proximity": 0.17
+    }
+  },
+
+  "mobility_parameters": {
+    "_doc": "Annual mobility rates and moving decision parameters. Based on CPS mobility tables ~2010 and Krysan & Crowder 2017.",
+    "base_annual_mobility_rate": {
+      "nh_white": 0.12,
+      "nh_black": 0.14,
+      "hispanic": 0.15,
+      "nh_asian": 0.12,
+      "nh_other": 0.13
+    },
+    "mobility_rate_by_tenure": {
+      "renter": 0.25,
+      "owner": 0.08
+    },
+    "homeownership_rate": {
+      "_doc": "Approximate homeownership rates in Chicago ~2010",
+      "nh_white": 0.55,
+      "nh_black": 0.38,
+      "hispanic": 0.42,
+      "nh_asian": 0.50
+    },
+    "dissatisfaction_threshold": {
+      "_doc": "Satisfaction score (0-10) below which agents actively seek to move",
+      "default": 4.0,
+      "highly_dissatisfied": 2.0
+    },
+    "move_probability_function": {
+      "_doc": "P(move) = base_rate * dissatisfaction_multiplier. When satisfaction < threshold, multiplier increases.",
+      "satisfied_multiplier": 0.3,
+      "neutral_multiplier": 1.0,
+      "dissatisfied_multiplier": 2.5,
+      "highly_dissatisfied_multiplier": 4.0
+    }
+  },
+
+  "housing_search_parameters": {
+    "_doc": "How agents search for new neighborhoods. Based on Krysan & Crowder 2017 Cycle of Segregation.",
+    "n_tracts_considered": {
+      "nh_white": {"mean": 5, "std": 2},
+      "nh_black": {"mean": 4, "std": 2},
+      "hispanic": {"mean": 3, "std": 1.5},
+      "nh_asian": {"mean": 5, "std": 2},
+      "nh_other": {"mean": 4, "std": 2}
+    },
+    "search_radius_hops": {
+      "_doc": "Max graph distance (number of adjacent tracts) to search from current location or social anchor",
+      "nh_white": 4,
+      "nh_black": 3,
+      "hispanic": 3,
+      "nh_asian": 5,
+      "nh_other": 4
+    },
+    "search_bias": {
+      "_doc": "Probability of searching in own-race-majority vs mixed vs other-race tracts. White/Black have strong own-area bias (Krysan & Crowder 2017). Hispanic/Asian search more broadly — their lower segregation reflects broader search patterns, not just weaker preferences.",
+      "nh_white": {"own_race_area": 0.55, "mixed_area": 0.35, "other_race_area": 0.10},
+      "nh_black": {"own_race_area": 0.50, "mixed_area": 0.35, "other_race_area": 0.15},
+      "hispanic": {"own_race_area": 0.30, "mixed_area": 0.45, "other_race_area": 0.25},
+      "nh_asian": {"own_race_area": 0.20, "mixed_area": 0.50, "other_race_area": 0.30},
+      "nh_other": {"own_race_area": 0.20, "mixed_area": 0.50, "other_race_area": 0.30}
+    },
+    "social_anchor_weight": {
+      "_doc": "How much social network location (family, friends, church) pulls search toward specific areas",
+      "nh_white": 0.20,
+      "nh_black": 0.40,
+      "hispanic": 0.50,
+      "nh_asian": 0.35,
+      "nh_other": 0.30
+    }
+  },
+
+  "archetype_dimensions": {
+    "_doc": "Defines the archetype clustering grid for the AgentTorch-style strategy. Total archetypes = 5 races x 4 income x 3 family x 5 neighborhood = 300 maximum (many empty).",
+    "race": {
+      "categories": ["nh_white", "nh_black", "nh_asian", "hispanic", "nh_other"],
+      "n": 5
+    },
+    "income_bracket": {
+      "_doc": "Based on Chicago per-capita income quartiles from processed data",
+      "categories": ["low", "lower_middle", "upper_middle", "high"],
+      "boundaries_per_capita": [0, 15528, 23040, 35787, 999999],
+      "boundaries_household": [0, 30000, 50000, 75000, 999999],
+      "n": 4
+    },
+    "family_type": {
+      "categories": ["single_no_children", "family_with_children", "elderly"],
+      "n": 3
+    },
+    "current_neighborhood_type": {
+      "categories": ["white_dominant", "black_dominant", "hispanic_dominant", "asian_enclave", "mixed"],
+      "classification_rule": "Dominant if single race >= 70%; asian_enclave if Asian >= 30%; else mixed",
+      "tract_counts": {"white_dominant": 135, "black_dominant": 251, "hispanic_dominant": 110, "asian_enclave": 15, "mixed": 270},
+      "n": 5
+    },
+    "max_theoretical_archetypes": 300,
+    "estimated_active_archetypes": "~120-180 (many race x neighborhood combinations have zero population)"
+  },
+
+  "archetype_modifier_rules": {
+    "_doc": "How archetype dimensions modify the base persona parameters",
+    "income_modifiers": {
+      "low": {
+        "racial_composition_weight": 0.85,
+        "housing_cost_weight": 1.50,
+        "school_quality_weight": 0.80,
+        "search_radius_multiplier": 0.70,
+        "mobility_rate_multiplier": 1.20
+      },
+      "lower_middle": {
+        "racial_composition_weight": 1.00,
+        "housing_cost_weight": 1.20,
+        "school_quality_weight": 1.00,
+        "search_radius_multiplier": 0.90,
+        "mobility_rate_multiplier": 1.00
+      },
+      "upper_middle": {
+        "racial_composition_weight": 1.10,
+        "housing_cost_weight": 0.90,
+        "school_quality_weight": 1.20,
+        "search_radius_multiplier": 1.10,
+        "mobility_rate_multiplier": 0.90
+      },
+      "high": {
+        "racial_composition_weight": 1.20,
+        "housing_cost_weight": 0.60,
+        "school_quality_weight": 1.30,
+        "search_radius_multiplier": 1.40,
+        "mobility_rate_multiplier": 0.80
+      }
+    },
+    "family_modifiers": {
+      "single_no_children": {
+        "school_quality_weight": 0.30,
+        "commute_weight": 1.40,
+        "amenities_weight": 1.50,
+        "mobility_rate_multiplier": 1.30
+      },
+      "family_with_children": {
+        "school_quality_weight": 1.80,
+        "safety_weight": 1.40,
+        "social_network_weight": 1.20,
+        "mobility_rate_multiplier": 0.70
+      },
+      "elderly": {
+        "school_quality_weight": 0.20,
+        "safety_weight": 1.30,
+        "social_network_weight": 1.50,
+        "amenities_weight": 1.30,
+        "mobility_rate_multiplier": 0.50
+      }
+    },
+    "neighborhood_context_modifiers": {
+      "_doc": "Being in a same-race dominant neighborhood reduces desire to move; mismatch increases it",
+      "race_match_bonus": 0.15,
+      "race_mismatch_penalty": 0.20
+    }
+  },
+
+  "exposure_indices_2010": {
+    "_doc": "Empirical exposure indices from Chicago 2010 Census tract data (pop-weighted avg). Used as initialization targets.",
+    "nh_white": {"nh_white": 60.2, "nh_black": 8.2, "nh_asian": 7.6, "hispanic": 21.9},
+    "nh_black": {"nh_white": 8.1, "nh_black": 79.7, "nh_asian": 1.7, "hispanic": 9.1},
+    "nh_asian": {"nh_white": 45.2, "nh_black": 10.3, "nh_asian": 20.8, "hispanic": 21.3},
+    "hispanic": {"nh_white": 23.7, "nh_black": 9.9, "nh_asian": 3.9, "hispanic": 61.2}
+  },
+
+  "validation_targets": {
+    "dissimilarity_index": {
+      "black_white": 0.825,
+      "hispanic_white": 0.563,
+      "asian_white": 0.449
+    },
+    "isolation_index": {
+      "black": 0.80
+    },
+    "tolerance_band": 0.05
+  },
+
+  "holc_legacy_effect": {
+    "_doc": "HOLC redlining grades affect neighborhood desirability as historical reputation",
+    "grade_desirability_score": {
+      "A": 1.00,
+      "B": 0.75,
+      "C": 0.50,
+      "D": 0.25
+    },
+    "grade_weight_in_satisfaction": 0.05,
+    "empirical_race_by_holc": {
+      "A": {"avg_pct_white": 76.0, "avg_pct_black": 7.8, "avg_income": 46415},
+      "B": {"avg_pct_white": 38.6, "avg_pct_black": 35.7, "avg_income": 28645},
+      "C": {"avg_pct_white": 31.7, "avg_pct_black": 33.2, "avg_income": 26739},
+      "D": {"avg_pct_white": 24.8, "avg_pct_black": 44.4, "avg_income": 29155}
+    }
+  },
+
+  "environmental_quality_normalization": {
+    "_doc": "Range of tract-level attributes used to normalize environment scores to 0-1",
+    "hardship_index": {"min": 1, "max": 98, "invert": true},
+    "crime_count_2010": {"min": 778, "max": 15801, "invert": true},
+    "cta_stations": {"max": 4, "invert": false},
+    "cta_bus_stops": {"max": 50, "invert": false},
+    "schools": {"max": 6, "invert": false},
+    "parks": {"max": 8, "invert": false}
+  }
+}

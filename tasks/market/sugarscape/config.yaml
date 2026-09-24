@@ -1,0 +1,20 @@
+# Sugarscape (Epstein-Axtell G1) wealth dynamics — all hyperparameters.
+task: sugarscape
+seed: 42
+
+population:               # P — citizens on a toroidal sugar grid
+  width: 50
+  height: 50
+  n_citizens: 200
+
+dynamics:                # E — sugar landscape + regrowth + metabolism
+  steps: 100
+  patch_capacity_max: 4
+  regrowth_rate: 1
+  metabolism_range: [1, 4]
+  vision_range: [1, 6]
+  initial_sugar_range: [5, 25]
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

@@ -1,0 +1,6 @@
+# Run `pre-commit install` once; thereafter secrets are scanned before every commit.
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks

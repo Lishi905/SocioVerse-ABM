@@ -1,0 +1,45 @@
+# Python / tooling
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+.vscode/
+.idea/
+.DS_Store
+
+# Secrets
+.env
+*.key
+*OPENAI_API_KEY*.txt
+
+# Simulation outputs and result artifacts (never committed)
+outputs/
+results/
+res_figs*/
+**/snapshots/
+**/replays/
+**/llm_cache/
+experiments/
+*.duckdb
+*.parquet
+*.pkl
+*.npz
+*.h5
+*.faiss
+*.gif
+*.png
+*.jpg
+*.jpeg
+*.pdf
+
+# Large binaries
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+*.tar
+*.tar.gz
+*.zip

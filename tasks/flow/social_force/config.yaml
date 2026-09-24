@@ -1,0 +1,30 @@
+# Helbing Social Force pedestrian evacuation — all hyperparameters.
+# Structurally faithful (driving force toward exit + exponential inter-agent
+# repulsion); force constants are tamed/dimensionless for a stable, verifiable
+# template. The full SI Helbing version (walls, time-to-collision) lives in legacy/.
+task: social_force
+seed: 42
+
+population:               # P — pedestrians in a bounded room with one exit
+  num_pedestrians: 60
+  width: 30.0
+  height: 30.0
+  spawn: {x: [2.0, 22.0], y: [2.0, 28.0]}   # start spread on the left/middle
+  goal: [30.0, 15.0]                          # exit on the right wall
+
+dynamics:                # E — social-force motion
+  steps: 300
+  dt: 0.1
+  tau: 0.5               # relaxation time
+  desired_speed_mu: 1.34
+  desired_speed_sigma: 0.26
+  v_max: 2.0
+  ped_radius: 0.3
+  interaction_range: 2.0
+  A: 2.0                 # repulsion strength (tamed units)
+  B: 0.4                 # repulsion falloff
+  exit_radius: 1.0       # within this of goal == evacuated
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

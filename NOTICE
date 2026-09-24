@@ -1,0 +1,50 @@
+SocioVerse-ABM
+Copyright 2026 The SocioVerse2 Authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+The license covers the source code; data files keep their own terms (see below).
+
+----------------------------------------------------------------------------
+Third-party code
+----------------------------------------------------------------------------
+
+Portions of the following files are adapted from the Mesa agent-based modeling
+framework and its examples (https://github.com/projectmesa/mesa,
+https://github.com/projectmesa/mesa-examples):
+
+  tasks/organization/civil_violence/legacy/agents.py
+      (adapted from the Epstein civil violence example)
+  tasks/organization/civil_violence/legacy/civil_violence_model.py
+      (adapted from the Epstein civil violence example)
+  tasks/organization/schelling/legacy/schelling_model.py
+      (adapted from the Schelling segregation example)
+
+  Copyright Core Mesa Team and contributors.
+  Licensed under the Apache License, Version 2.0.
+
+----------------------------------------------------------------------------
+Data
+----------------------------------------------------------------------------
+
+The Chicago census geography and configuration vendored in
+tasks/organization/chicago_segregation/legacy/ are not covered by the Apache
+License of this repository. See
+tasks/organization/chicago_segregation/legacy/DATA_LICENSE.md for the full
+terms. In short:
+
+  - U.S. Census Bureau: 2010 Census SF1, 2000 Census SF1/SF3, ACS 2008-2012,
+    TIGER/Line boundaries. Public domain. This product uses the Census Bureau
+    Data API but is not endorsed or certified by the Census Bureau.
+  - City of Chicago Data Portal (https://data.cityofchicago.org): community
+    areas, socioeconomic indicators, crime, CTA, schools, police, fire and
+    parks. Used under the City of Chicago data Terms of Use; data provided by
+    the City of Chicago Data Portal.
+  - OpenStreetMap: the religious_places column. Map data (c) OpenStreetMap
+    contributors, available under the Open Database License 1.0 (ODbL).
+  - Mapping Inequality census crosswalk
+    (https://github.com/americanpanorama/mapping-inequality-census-crosswalk;
+    Nelson, Winling, et al., "Mapping Inequality: Redlining in New Deal
+    America", American Panorama, University of Richmond Digital Scholarship
+    Lab): the holc_grade / holc_score / holc_coverage columns and the
+    holc_legacy_effect / empirical_race_by_holc fields of
+    config/persona_parameters.json. Licensed CC BY-NC: NON-COMMERCIAL USE ONLY.

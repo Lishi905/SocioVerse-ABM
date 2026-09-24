@@ -1,0 +1,15 @@
+# Minority Game (Challet-Zhang) — all hyperparameters.
+task: minority_game
+seed: 42
+
+population:               # P — agents with strategy tables
+  n_agents: 101          # odd, so there is always a strict minority
+  memory: 5              # M: history length each strategy reads (table size 2^M)
+  n_strategies: 2        # S: strategies per agent
+
+dynamics:                # E — the repeated minority game
+  steps: 500
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

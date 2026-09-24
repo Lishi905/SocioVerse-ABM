@@ -1,0 +1,24 @@
+# Reynolds Boids flocking — all hyperparameters.
+task: boids
+seed: 42
+
+population:               # P — boids in a continuous 2-D box
+  num_boids: 40
+  width: 800
+  height: 600
+
+dynamics:                # E — flocking forces + integration
+  steps: 200
+  dt: 1.0
+  max_speed: 6.0
+  max_force: 0.5         # caps per-step steering (turn rate)
+  perception_radius: 50.0
+  separation_radius: 25.0
+  weights:
+    separation: 1.5
+    alignment: 1.0
+    cohesion: 1.0
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

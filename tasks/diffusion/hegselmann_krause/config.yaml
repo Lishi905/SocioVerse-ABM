@@ -1,0 +1,15 @@
+# Hegselmann-Krause bounded-confidence opinion dynamics — all hyperparameters.
+task: hegselmann_krause
+seed: 42
+
+population:               # P — agents with a continuous opinion in [0, 1]
+  n: 100
+  topology: complete     # classic HK = fully mixed (everyone may influence everyone)
+
+dynamics:                # E — bounded-confidence averaging
+  steps: 200
+  epsilon: 0.15          # confidence bound: only opinions within epsilon are heard
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

@@ -1,0 +1,4 @@
+title = "SocioVerse-ABM gitleaks config"
+
+[extend]
+useDefault = true

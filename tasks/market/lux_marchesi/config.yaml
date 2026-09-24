@@ -1,0 +1,28 @@
+# Lux-Marchesi interacting-agents financial market — hyperparameters.
+# Core herding model: a fixed pool of fundamentalists anchors price to value while
+# noise traders (optimists/pessimists) herd, producing volatility clustering and fat
+# tails. The full multi-mode SI version (strategy switching, burst substeps) is in
+# legacy/lux_marchesi_model.py; config keys mirror legacy/configuration_paper.json.
+task: lux_marchesi
+seed: 42
+
+population:               # P — three trader stances
+  num_fundamentalists: 167
+  num_optimists: 167
+  num_pessimists: 166
+
+dynamics:                # E — market price formation
+  steps: 1000
+  market_price: 100.0
+  market_value: 100.0
+  tc: 0.02               # noise-trader demand per capita
+  gamma: 0.01            # fundamentalist demand sensitivity
+  beta: 4.0              # price adjustment speed
+  a1: 0.6               # herding: weight on majority opinion (alpha1)
+  a2: 1.5               # herding: weight on price trend (alpha2)
+  dt: 0.01
+  value_sigma: 0.002     # fundamental-value random walk
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o

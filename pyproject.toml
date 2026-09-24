@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "socioverse-abm"
+version = "0.2.0"
+description = "SocioVerse-ABM: classic agent-based models with LLM agents in place of rule-based agents, a benchmark of whether LLM agents reproduce collective behavior (B = f(P, E)); companion to SocioVerse2."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "The SocioVerse2 Authors" }]
+keywords = ["agent-based modeling", "LLM agents", "social simulation", "benchmark", "SocioVerse2"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy>=1.24",
+    "networkx>=3.0",
+    "openai>=1.0",      # llm_f: generate / parse / embedding (imported lazily)
+    "pyyaml>=6.0",      # per-task config.yaml
+]
+
+[project.optional-dependencies]
+# Chicago segregation task (organization family): real census geography + the
+# validated legacy SegregationModel. Heavy geo/ABM stack; only this one task needs it.
+chicago = ["geopandas>=1.0", "libpysal>=4.10", "mesa>=3.1,<4", "pandas>=2"]
+dev = ["pytest", "pre-commit"]
+
+[project.urls]
+Homepage = "https://socioverse.fudan-disc.com/"
+Documentation = "https://socioverse.fudan-disc.com/docs/"
+Repository = "https://github.com/Lishi905/SocioVerse-ABM"
+SocioVerse2 = "https://github.com/sii-research/SocioVerse2"
+Paper = "https://arxiv.org/abs/2609.24911"
+
+[project.scripts]
+sv-abm = "socioverse_abm.runner:main"
+
+[tool.setuptools.packages.find]
+include = ["socioverse_abm*", "tasks*"]
+
+[tool.setuptools.package-data]
+# Each task reads its config.yaml at run time. The Chicago task's vendored data
+# (legacy/config/, legacy/processed_data/) is not packaged: use a git checkout, or point
+# SV_CHICAGO_LEGACY at a checkout's tasks/organization/chicago_segregation/legacy/.
+"*" = ["config.yaml"]
+
+[tool.pytest.ini_options]
+# legacy/ holds verbatim original scripts (parity baselines) with their own deps
+# (per folder, e.g. mesa 2.x or 3.x, ndlib, openai<1); they are not part of the kernel test suite.
+norecursedirs = ["legacy", "*.egg-info", "build", "dist"]

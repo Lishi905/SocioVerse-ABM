@@ -1,0 +1,82 @@
+cff-version: 1.2.0
+message: "If you use SocioVerse-ABM, please cite the SocioVerse2 technical report below."
+title: "SocioVerse-ABM"
+type: software
+version: 0.2.0
+date-released: "2026-09-25"
+license: Apache-2.0
+repository-code: "https://github.com/Lishi905/SocioVerse-ABM"
+url: "https://socioverse.fudan-disc.com/"
+abstract: >-
+  SocioVerse-ABM replaces the rule-based agents of classic agent-based models with LLM
+  agents that receive the same observations and return the same typed actions, and
+  benchmarks whether the LLM agents reproduce the collective behavior of the rules. It is
+  the ABM benchmark companion of SocioVerse2.
+keywords:
+  - agent-based modeling
+  - LLM agents
+  - social simulation
+  - benchmark
+  - computational social science
+authors:
+  - name: "The SocioVerse2 Authors"
+preferred-citation:
+  type: article
+  title: "SocioVerse2: A Longitudinal Dynamic Social Simulation Framework under a Human-AI Co-evolutionary Paradigm"
+  year: 2026
+  month: 9
+  journal: "arXiv preprint"
+  identifiers:
+    - type: other
+      value: "arXiv:2609.24911"
+      description: "arXiv identifier"
+    - type: doi
+      value: "10.48550/arXiv.2609.24911"
+      description: "arXiv-issued DOI"
+  doi: "10.48550/arXiv.2609.24911"
+  url: "https://arxiv.org/abs/2609.24911"
+  authors:
+    - family-names: Zhang
+      given-names: Xinnong
+    - family-names: Lin
+      given-names: Jiayu
+    - family-names: Wang
+      given-names: Jia
+    - family-names: Huang
+      given-names: Yixu
+    - family-names: Mou
+      given-names: Xinyi
+    - family-names: Wu
+      given-names: Yingqian
+    - family-names: Liang
+      given-names: Jingcong
+    - family-names: Lei
+      given-names: Shijun
+    - family-names: Shi
+      given-names: Jianing
+    - family-names: Li
+      given-names: Guanying
+    - family-names: Wang
+      given-names: Siyuan
+    - family-names: Lyu
+      given-names: Hanjia
+    - family-names: Yin
+      given-names: Zhenfei
+    - family-names: Yin
+      given-names: Yunlu
+    - family-names: Chen
+      given-names: Siming
+    - family-names: He
+      given-names: Yulan
+    - family-names: Luo
+      given-names: Jiebo
+    - family-names: Huang
+      given-names: Xuanjing
+    - family-names: Jin
+      given-names: Liyin
+    - family-names: Zhou
+      given-names: Baohua
+    - family-names: Yan
+      given-names: Hanqi
+    - family-names: Wei
+      given-names: Zhongyu

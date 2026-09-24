@@ -1,0 +1,20 @@
+# Schelling segregation — all hyperparameters.
+task: schelling
+seed: 42
+
+population:               # P — two groups on a grid with some empty cells
+  width: 30
+  height: 30
+  density: 0.90          # fraction of cells occupied
+  minority_fraction: 0.5 # split between group 1 and group 2
+
+dynamics:                # E — the grid + the homophily rule
+  steps: 50
+  homophily: 0.40        # desired fraction of same-group neighbours (move if below)
+
+behavior:                # f — rule | llm | hybrid
+  mode: rule             # informational: sv-abm run takes --mode; hybrid routes every agent to the rule by default
+  llm_model: gpt-4o
+  # --- the four Schelling/Civil-Violence variants, as parameters ---
+  context: ocm           # ocm = original (numeric neighbours) | lcm = language (narrative E)
+  llm_behavior: tbf      # tbf = traditional (LLM follows the rule) | lbf = language (free reasoning)

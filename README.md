@@ -8,7 +8,7 @@
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="assets/challenge-banner.svg">
       <source media="(prefers-color-scheme: light)" srcset="assets/challenge-banner-light.svg">
-      <img alt="SocioVerse Challenge 2026: AI4SS Challenge for Human-AI Collaboration and Social Governance. Three research tracks, $21,050 in prizes and API support, final submission October 31, 2026." src="assets/challenge-banner.svg" width="100%">
+      <img alt="SocioVerse Challenge 2026: AI4SS Challenge for Human-AI Collaboration and Social Governance. Three research tracks, $17,600 in prizes and API support, final submission October 31, 2026." src="assets/challenge-banner.svg" width="100%">
     </picture>
   </a>
 </p>
@@ -46,7 +46,7 @@
 
 - **2026-09** SocioVerse-ABM v0.2.0 is open-sourced as the ABM benchmark companion of [SocioVerse2](https://github.com/sii-research/SocioVerse2).
 - **2026-09-21** The SocioVerse2 technical report is on arXiv: [SocioVerse2: A Longitudinal Dynamic Social Simulation Framework under a Human-AI Co-evolutionary Paradigm](https://arxiv.org/abs/2609.24911). This repository backs its Case Study 1 (*Reproducing Canonical ABMs with LLM Agents*) and Case Study 3 (*Chicago Segregation with Real Census Data*).
-- **2026-09-15** [SocioVerse Challenge 2026](https://socioverse.fudan-disc.com/challenge/) (AI4SS Challenge for Human–AI Collaboration and Social Governance) opens registration: three tracks, $21,050 in prizes and API support, proposals due 2026-10-09, final submissions 2026-10-31.
+- **2026-09-15** [SocioVerse Challenge 2026](https://socioverse.fudan-disc.com/challenge/) (AI4SS Challenge for Human–AI Collaboration and Social Governance) opens registration: three tracks, $17,600 in prizes and API support, proposals due 2026-10-09, final submissions 2026-10-31.
 
 ## Overview
 
